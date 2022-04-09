@@ -53,14 +53,14 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: garafana
-  namespace: garafana
+  name: grafana
+  namespace: grafana
 spec:
   entryPoints:
     - web
   routes:
     - kind: Rule
-      match: Host(`garafana.kuberstar.com`)
+      match: Host(`grafana.kuberstar.com`)
       services:
-        - name: garafana
+        - name: grafana
           port: 80
