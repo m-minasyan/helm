@@ -34,3 +34,18 @@ spec:
         - name: argocd-server
           port: 80
           scheme: h2c
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: prometheus-server
+  namespace: prometheus
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`prometheus.kuberstar.com`)
+      services:
+        - name: prometheus-server
+          port: 80
