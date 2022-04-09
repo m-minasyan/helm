@@ -24,4 +24,4 @@ spec:
       kind: Rule
       services:
         - name: argocd-server
-          kind: service
+          kind: Service
