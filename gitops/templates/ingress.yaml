@@ -38,21 +38,6 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: prometheus-server
-  namespace: monitoring
-spec:
-  entryPoints:
-    - web
-  routes:
-    - kind: Rule
-      match: Host(`prometheus.kuberstar.com`)
-      services:
-        - name: prometheus-server
-          port: 80
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
   name: grafana
   namespace: monitoring
 spec:
