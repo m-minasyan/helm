@@ -19,7 +19,7 @@ metadata:
   namespace: argocd
 spec:
   entryPoints:
-    - websecure
+    - web
   routes:
     - kind: Rule
       match: Host(`130.162.36.241`)
