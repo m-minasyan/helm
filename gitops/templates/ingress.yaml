@@ -64,3 +64,18 @@ spec:
       services:
         - name: grafana
           port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: loki
+  namespace: loki
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`loki.kuberstar.com`)
+      services:
+        - name: loki
+          port: 3100
