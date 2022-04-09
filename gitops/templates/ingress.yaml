@@ -25,4 +25,4 @@ spec:
       services:
         - name: argocd-server
           kind: Service
-          port: 443
+          port: 80
