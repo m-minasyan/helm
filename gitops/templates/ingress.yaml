@@ -49,3 +49,18 @@ spec:
       services:
         - name: prometheus-server
           port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: garafana
+  namespace: garafana
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`garafana.kuberstar.com`)
+      services:
+        - name: garafana
+          port: 80
