@@ -17,7 +17,7 @@ container:
   port: 80
 
 route:
-  host: argocd.kuberstar.com
+  host: kuberstar.com
   path: /
   port: 80
 
