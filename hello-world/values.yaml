@@ -1,13 +1,12 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: hello-world
   pullPolicy: Always
-  tag: ""
 
 imagePullSecrets: []
-nameOverride: "nginx"
-fullnameOverride: "nginx"
+nameOverride: "hello-world"
+fullnameOverride: "hello-world"
 
 service:
   type: ClusterIP
