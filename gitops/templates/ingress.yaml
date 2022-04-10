@@ -11,8 +11,8 @@ spec:
       services:
         - name: api@internal
           kind: TraefikService
-      middlewares:
-        - name: traefik-auth
+#      middlewares:
+#        - name: traefik-auth
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
