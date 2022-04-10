@@ -11,6 +11,8 @@ spec:
       services:
         - name: api@internal
           kind: TraefikService
+      middlewares:
+        - name: traefik-auth
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -49,3 +51,11 @@ spec:
       services:
         - name: grafana
           port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-auth
+spec:
+  basicAuth:
+    secret: traefik-auth
