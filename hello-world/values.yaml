@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: hello-world
+  repository: ksdn117/lorem-ipsum
   pullPolicy: Always
 
 imagePullSecrets: []
