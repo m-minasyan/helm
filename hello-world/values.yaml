@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: ksdn117/lorem-ipsum
+  repository: nginx
   pullPolicy: Always
 
 imagePullSecrets: []
