@@ -35,3 +35,18 @@ spec:
       services:
         - name: grafana
           port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: jenkins
+  namespace: jenkins
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`jenkins.kuberstar.com`)
+      services:
+        - name: jenkins
+          port: 8080
