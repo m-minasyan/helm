@@ -1,2 +1,7 @@
 
-.idea/
+.idea\
+helm.iml
+misc.xml
+modules.xml
+vcs.xml
+workspace.xml
