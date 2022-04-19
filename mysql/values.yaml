@@ -1,0 +1,14 @@
+replicaCount: 1
+
+image:
+  repository: arm64v8/mysql:8.0-oracle
+  pullPolicy: IfNotPresent
+
+nameOverride: "mysql"
+fullnameOverride: "mysql"
+
+service:
+  type: ClusterIP
+  port: 3306
+  targetPort: 3306
+  clusterIP: 10.43.79.175

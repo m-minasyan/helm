@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "mysql.fullname" . }}
+  annotations:
+    field.cattle.io/publicEndpoints: >-
+      [{"addresses":["172.16.0.153"],"port":3306,"protocol":"TCP","serviceName":"mysql:mysql-loadbalancer","allNodes":false}]
+  namespace: {{ include "mysql.fullname" . }}
+spec:
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: apps.statefulset-mysql-mysql
+  template:
+    metadata:
+      labels:
+        workload.user.cattle.io/workloadselector: apps.statefulset-mysql-mysql
+    spec:
+      containers:
+        - env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: adminpass
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          name: {{ include "mysql.fullname" . }}
+          ports:
+            - containerPort: 3306
+              name: {{ include "mysql.fullname" . }}
+              protocol: TCP
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /var/lib/{{ include "mysql.fullname" . }}
+              name: {{ include "mysql.fullname" . }}
+          resources: {}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - hostPath:
+            path: /home/ubuntu/{{ include "mysql.fullname" . }}-data
+            type: ''
+          name: {{ include "mysql.fullname" . }}
+  podManagementPolicy: OrderedReady
+  replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: 10
+  serviceName: {{ include "mysql.fullname" . }}
+  updateStrategy:
+    type: OnDelete
