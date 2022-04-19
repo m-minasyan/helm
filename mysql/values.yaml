@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: arm64v8/mysql:8.0-oracle
+  repository: arm64v8/mysql
   pullPolicy: IfNotPresent
 
 nameOverride: "mysql"
