@@ -24,6 +24,6 @@ spec:
       protocol: TCP
       targetPort: {{ .Values.service.targetPort }}
   selector:
-    {{- include "mysql.labels" . | nindent 4 }}
+    workload.user.cattle.io/workloadselector: apps.statefulset-mysql-mysql
   sessionAffinity: None
   type: LoadBalancer
