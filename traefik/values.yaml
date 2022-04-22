@@ -32,10 +32,10 @@ deployment:
     # - name: socat-proxy
     # image: alpine/socat:1.0.5
     # args: ["-s", "-u", "udp-recv:8125", "unix-sendto:/socket/socket"]
-    volumeMounts:
-      - mountPath: /certs
-        name: traefik-data
-        readOnly: false
+  volumeMounts:
+    - mountPath: /certs
+      name: traefik-data
+      readOnly: false
   # Additional volumes available for use with initContainers and additionalContainers
   additionalVolumes: []
     - name: traefik-data
