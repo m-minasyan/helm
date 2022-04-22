@@ -417,7 +417,7 @@ autoscaling:
 # After the pvc has been mounted, add the configs into traefik by using the `additionalArguments` list below, eg:
 # It will persist TLS certificates.
 persistence:
-  enabled: false
+  enabled: true
   name: data
 #  existingClaim: ""
   accessMode: ReadWriteOnce
