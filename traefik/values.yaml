@@ -39,8 +39,7 @@ deployment:
   # Additional volumes available for use with initContainers and additionalContainers
   additionalVolumes:
     - name: traefik-data
-      hostPath:
-      path: /home/ubuntu/traefik-data
+      hostPath: {path: /home/ubuntu/traefik-data}
   # Additional initContainers (e.g. for setting file permission as shown below)
   initContainers:
     - name: volume-permissions
