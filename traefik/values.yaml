@@ -418,12 +418,12 @@ autoscaling:
 # It will persist TLS certificates.
 persistence:
   enabled: true
-  name: data
+  name: certs
 #  existingClaim: ""
   accessMode: ReadWriteOnce
   size: 128Mi
   # storageClass: ""
-  path: /data
+  path: /certs
   annotations: {}
   # subPath: "" # only mount a subpath of the Volume into the pod
 
