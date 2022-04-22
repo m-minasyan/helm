@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "duplicati.fullname" . }}
+  labels:
+    {{- include "duplicati.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "duplicati.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+        {{- with .Values.podAnnotations }}
+      annotations:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+          {{- include "duplicati.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ include "duplicati.fullname" . }}
+          env:
+            - { name: PUID, value: "0" }
+            - { name: TZ, value: $TZ }
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          ports:
+            - name: http
+              containerPort: {{ .Values.container.port }}
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /config
+              name: config
+            - mountPath: /restore
+              name: restore
+            - mountPath: /backup/share
+              name: share
+            - mountPath: /backup/services
+              name: backup
+              readOnly: true
+            - mountPath: /backup/share/traefik
+              name: traefik
+              readOnly: true
+            - mountPath: /backup/home
+              name: home
+              readOnly: true
+      volumes:
+        - name: config
+          hostPath: { path: $K8S_VOLUMES_PATH/duplicati/config }
+        - name: backup
+          hostPath: { path: $PATH_BKP }
+        - name: gitlab
+          hostPath: { path: $K8S_VOLUMES_PATH/traefik }
+        - name: home
+          hostPath: { path: /home }
+  volumeClaimTemplates:
+    - metadata:
+        name: restore
+      spec:
+        accessModes: [ ReadWriteOnce ]
+        resources:
+          requests:
+            storage: 8Gi

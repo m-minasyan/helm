@@ -55,19 +55,19 @@ spec:
     secret: traefik-dashboard-auth
 ---
 # Duplicati
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: duplicati
-  namespace: duplicati
-spec:
-  entryPoints:
-    - websecure
-  routes:
-    - match: Host(`duplicati-cluster.kuberstar.com`)
-      kind: Rule
-      services:
-        - name: duplicati
-          port: 8200
-  tls:
-    certResolver: myresolver
+#apiVersion: traefik.containo.us/v1alpha1
+#kind: IngressRoute
+#metadata:
+#  name: duplicati
+#  namespace: duplicati
+#spec:
+#  entryPoints:
+#    - websecure
+#  routes:
+#    - match: Host(`duplicati-cluster.kuberstar.com`)
+#      kind: Rule
+#      services:
+#        - name: duplicati
+#          port: 8200
+#  tls:
+#    certResolver: myresolver
