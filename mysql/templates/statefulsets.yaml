@@ -5,7 +5,6 @@ metadata:
   namespace: {{ include "mysql.fullname" . }}
 spec:
   selector:
-    matchLabels:
         {{- include "mysql.selectorLabels" . | nindent 6 }}
   template:
     metadata:
@@ -16,7 +15,7 @@ spec:
         - env:
             - name: MYSQL_ROOT_PASSWORD
               value: adminpass
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           name: {{ include "mysql.fullname" . }}
           ports:
