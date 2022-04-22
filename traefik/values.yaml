@@ -37,7 +37,7 @@ deployment:
       name: traefik-data
       readOnly: false
   # Additional volumes available for use with initContainers and additionalContainers
-  additionalVolumes: []
+  additionalVolumes:
     - name: traefik-data
       hostPath:
       path: /home/ubuntu/traefik-data
