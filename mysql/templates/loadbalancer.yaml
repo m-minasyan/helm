@@ -15,7 +15,7 @@ spec:
   ipFamilyPolicy: SingleStack
   ports:
     - name: {{ include "mysql.fullname" . }}
-      nodePort: 30213
+      nodePort: {{ .Values.service.port }}
       port: {{ .Values.service.port }}
       protocol: TCP
       targetPort: {{ .Values.service.targetPort }}
