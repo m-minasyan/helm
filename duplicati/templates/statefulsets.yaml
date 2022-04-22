@@ -48,7 +48,7 @@ spec:
           hostPath: { path: $K8S_VOLUMES_PATH/duplicati/config }
         - name: backup
           hostPath: { path: $PATH_BKP }
-        - name: gitlab
+        - name: traefik
           hostPath: { path: $K8S_VOLUMES_PATH/traefik }
         - name: home
           hostPath: { path: /home }
