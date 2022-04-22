@@ -3,6 +3,10 @@ kind: Service
 metadata:
   name: {{ include "mysql.fullname" . }}-loadbalancer
   namespace: {{ include "mysql.fullname" . }}
+  annotations:
+    field.cattle.io/publicEndpoints: '[{"addresses":["172.16.0.153"],"port":3306,"protocol":"TCP","serviceName":"mysql:mysql-loadbalancer","allNodes":false}]'
+    field.cattle.io/targetWorkloadIds: '["mysql/mysql"]'
+    management.cattle.io/ui-managed: "true"
 spec:
   allocateLoadBalancerNodePorts: true
   clusterIP: {{ .Values.service.clusterIP }}
@@ -15,7 +19,7 @@ spec:
   ipFamilyPolicy: SingleStack
   ports:
     - name: {{ include "mysql.fullname" . }}
-      nodePort: {{ .Values.service.port }}
+      nodePort: 30213
       port: {{ .Values.service.port }}
       protocol: TCP
       targetPort: {{ .Values.service.targetPort }}

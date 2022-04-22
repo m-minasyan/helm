@@ -3,6 +3,9 @@ kind: StatefulSet
 metadata:
   name: {{ include "mysql.fullname" . }}
   namespace: {{ include "mysql.fullname" . }}
+  annotations:
+    field.cattle.io/publicEndpoints: >-
+      [{"addresses":["172.16.0.153"],"port":3306,"protocol":"TCP","serviceName":"mysql:mysql-loadbalancer","allNodes":false}]
   labels:
     {{- include "mysql.labels" . | nindent 4 }}
 spec:
