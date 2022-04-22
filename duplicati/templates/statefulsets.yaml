@@ -50,8 +50,9 @@ spec:
           hostPath: { path: /duplicati/config }
         - name: backup
           hostPath: { path: / }
-        - name: traefik
-          hostPath: { path: / }
+        - name: data
+          persistentVolumeClaim:
+            claimName: traefik
         - name: home
           hostPath: { path: /home }
 
