@@ -46,7 +46,7 @@ deployment:
       image: busybox:1.31.1
       command: ["sh", "-c", "chmod -Rv 600 /certs/*"]
       volumeMounts:
-        - name: data
+        - name: traefik-data
           mountPath: /certs
   # Use process namespace sharing
   shareProcessNamespace: false
