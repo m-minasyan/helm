@@ -23,23 +23,6 @@ spec:
   tls:
     certResolver: myresolver
 ---
-#apiVersion: traefik.containo.us/v1alpha1
-#kind: IngressRoute
-#metadata:
-#  name: grafana
-#  namespace: monitoring
-#spec:
-#  entryPoints:
-#    - websecure
-#  routes:
-#    - kind: Rule
-#      match: Host(`grafana.kuberstar.com`)
-#      services:
-#        - name: grafana
-#          port: 80
-#  tls:
-#    certResolver: myresolver
-___
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
