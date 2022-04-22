@@ -5,11 +5,16 @@ metadata:
   namespace: {{ include "mysql.fullname" . }}
 spec:
   selector:
-        {{- include "mysql.selectorLabels" . | nindent 6 }}
+    matchLabels:
+      {{- include "hello-world.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+          {{- with .Values.podAnnotations }}
+      annotations:
+            {{- toYaml . | nindent 8 }}
+          {{- end }}
       labels:
-        {{- include "mysql.selectorLabels" . | nindent 8 }}
+            {{- include "mysql.selectorLabels" . | nindent 8 }}
     spec:
       containers:
         - env:
