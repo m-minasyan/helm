@@ -28,42 +28,16 @@ spec:
               containerPort: {{ .Values.container.port }}
               protocol: TCP
           volumeMounts:
-            - mountPath: /config
-              name: config
-#            - mountPath: /restore
-#              name: restore
-            - mountPath: /backup/services
-              name: backup
-              readOnly: true
-            - mountPath: /backup/share/traefik
-              name: traefik
-              readOnly: true
-            - mountPath: /backup/home
-              name: home
+            - mountPath: /source/myqsl
+              name: mysql
               readOnly: true
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       terminationGracePeriodSeconds: 30
       volumes:
-        - name: config
-          hostPath: { path: /duplicati/config }
-        - name: backup
-          hostPath: { path: / }
-        - name: traefik
-          persistentVolumeClaim:
-            claimName: traefik
-        - name: home
-          hostPath: { path: /home }
-
-#  volumeClaimTemplates:
-#    - metadata:
-#        name: restore
-#      spec:
-#        accessModes: [ ReadWriteOnce ]
-#        resources:
-#          requests:
-#            storage: 8Gi
+        - name: mysql
+          hostPath: { path: /home/ubuntu/mysql_home }
   podManagementPolicy: OrderedReady
   replicas: {{ .Values.replicaCount }}
   revisionHistoryLimit: 10

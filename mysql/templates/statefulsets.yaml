@@ -2,18 +2,15 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: {{ include "mysql.fullname" . }}
-  annotations:
-    field.cattle.io/publicEndpoints: >-
-      [{"addresses":["172.16.0.153"],"port":3306,"protocol":"TCP","serviceName":"mysql:mysql-loadbalancer","allNodes":false}]
   namespace: {{ include "mysql.fullname" . }}
 spec:
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: apps.statefulset-mysql-mysql
+        {{- include "hello-world.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        workload.user.cattle.io/workloadselector: apps.statefulset-mysql-mysql
+        {{- include "hello-world.selectorLabels" . | nindent 8 }}
     spec:
       containers:
         - env:
@@ -23,15 +20,12 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           name: {{ include "mysql.fullname" . }}
           ports:
-            - containerPort: 3306
+            - containerPort: {{ .Values.service.port }}
               name: {{ include "mysql.fullname" . }}
               protocol: TCP
-          terminationMessagePath: /dev/termination-log
-          terminationMessagePolicy: File
           volumeMounts:
             - mountPath: /var/lib/{{ include "mysql.fullname" . }}
               name: {{ include "mysql.fullname" . }}
-          resources: {}
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
