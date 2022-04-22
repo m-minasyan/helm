@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      {{- include "hello-world.selectorLabels" . | nindent 6 }}
+      {{- include "mysql.selectorLabels" . | nindent 6 }}
   template:
     metadata:
           {{- with .Values.podAnnotations }}
