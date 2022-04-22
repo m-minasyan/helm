@@ -23,19 +23,47 @@ spec:
   tls:
     certResolver: myresolver
 ---
+#apiVersion: traefik.containo.us/v1alpha1
+#kind: IngressRoute
+#metadata:
+#  name: grafana
+#  namespace: monitoring
+#spec:
+#  entryPoints:
+#    - websecure
+#  routes:
+#    - kind: Rule
+#      match: Host(`grafana.kuberstar.com`)
+#      services:
+#        - name: grafana
+#          port: 80
+#  tls:
+#    certResolver: myresolver
+___
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: grafana
-  namespace: monitoring
+  name: traefik-dashboard
+  namespace: traefik
 spec:
   entryPoints:
     - websecure
   routes:
-    - kind: Rule
-      match: Host(`grafana.kuberstar.com`)
+    - match: Host(`traefik-cluster.kuberstar.com`)
+      kind: Rule
+      middlewares:
+        - name: traefik-dashboard-basicauth
+          namespace: traefik
       services:
-        - name: grafana
-          port: 80
-  tls:
-    certResolver: myresolver
+        - name: api@internal
+          kind: TraefikService
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-dashboard-basicauth
+  namespace: traefik
+spec:
+  basicAuth:
+    secret: traefik-dashboard-auth
+---
