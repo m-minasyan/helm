@@ -20,7 +20,6 @@ spec:
       protocol: TCP
       targetPort: {{ .Values.service.targetPort }}
   selector:
-    matchLabels:
-            {{- include "mysql.selectorLabels" . | nindent 6 }}
+    {{- include "mysql.labels" . | nindent 4 }}
   sessionAffinity: None
   type: LoadBalancer

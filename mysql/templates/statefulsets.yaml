@@ -3,10 +3,12 @@ kind: StatefulSet
 metadata:
   name: {{ include "mysql.fullname" . }}
   namespace: {{ include "mysql.fullname" . }}
+  labels:
+    {{- include "mysql.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
-      {{- include "mysql.labels" . | nindent 4 }}
+      {{- include "mysql.selectorLabels" . | nindent 6 }}
   template:
     metadata:
           {{- with .Values.podAnnotations }}
@@ -14,7 +16,7 @@ spec:
             {{- toYaml . | nindent 8 }}
           {{- end }}
       labels:
-            {{- include "mysql.selectorLabels" . | nindent 8 }}
+        {{- include "mysql.selectorLabels" . | nindent 8 }}
     spec:
       containers:
         - env:
