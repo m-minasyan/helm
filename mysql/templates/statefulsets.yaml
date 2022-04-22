@@ -6,8 +6,6 @@ metadata:
   annotations:
     field.cattle.io/publicEndpoints: >-
       [{"addresses":["172.16.0.153"],"port":3306,"protocol":"TCP","serviceName":"mysql:mysql-loadbalancer","allNodes":false}]
-  labels:
-    {{- include "mysql.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
@@ -32,9 +30,12 @@ spec:
             - containerPort: {{ .Values.service.port }}
               name: {{ include "mysql.fullname" . }}
               protocol: TCP
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
           volumeMounts:
             - mountPath: /var/lib/{{ include "mysql.fullname" . }}
               name: {{ include "mysql.fullname" . }}
+          resources: {}
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
