@@ -52,14 +52,14 @@ spec:
           hostPath: { path: $K8S_VOLUMES_PATH/traefik }
         - name: home
           hostPath: { path: /home }
-  volumeClaimTemplates:
-    - metadata:
-        name: restore
-      spec:
-        accessModes: [ ReadWriteOnce ]
-        resources:
-          requests:
-            storage: 8Gi
+#  volumeClaimTemplates:
+#    - metadata:
+#        name: restore
+#      spec:
+#        accessModes: [ ReadWriteOnce ]
+#        resources:
+#          requests:
+#            storage: 8Gi
   revisionHistoryLimit: 10
   serviceName: {{ include "duplicati.fullname" . }}
   updateStrategy:
