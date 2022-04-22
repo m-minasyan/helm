@@ -60,9 +60,9 @@ spec:
 #        resources:
 #          requests:
 #            storage: 8Gi
-  podManagementPolicy: OrderedReady
+#  podManagementPolicy: OrderedReady
   replicas: {{ .Values.replicaCount }}
-  revisionHistoryLimit: 10
-  serviceName: {{ include "duplicati.fullname" . }}
-  updateStrategy:
-    type: OnDelete
+#  revisionHistoryLimit: 10
+#  serviceName: {{ include "duplicati.fullname" . }}
+#  updateStrategy:
+#    type: OnDelete
