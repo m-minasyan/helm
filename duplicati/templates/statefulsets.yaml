@@ -47,11 +47,11 @@ spec:
       terminationGracePeriodSeconds: 30
       volumes:
         - name: config
-          hostPath: { path: $K8S_VOLUMES_PATH/duplicati/config }
+          hostPath: { path: /duplicati/config }
         - name: backup
-          hostPath: { path: $PATH_BKP }
+          hostPath: { path: / }
         - name: traefik
-          hostPath: { path: $K8S_VOLUMES_PATH/traefik }
+          hostPath: { path: / }
         - name: home
           hostPath: { path: /home }
 
