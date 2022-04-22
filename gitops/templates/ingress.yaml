@@ -40,6 +40,8 @@ spec:
       services:
         - name: api@internal
           kind: TraefikService
+  tls:
+    certResolver: myresolver
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
