@@ -4,9 +4,6 @@ metadata:
   name: {{ include "jenkins.fullname" . }}
   namespace: {{ include "jenkins.fullname" . }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
       {{- include "jenkins.selectorLabels" . | nindent 6 }}
