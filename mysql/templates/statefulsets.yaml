@@ -16,6 +16,9 @@ spec:
         workload.user.cattle.io/workloadselector: apps.statefulset-mysql-mysql
     spec:
       containers:
+      - env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: adminpass
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         name: {{ include "mysql.fullname" . }}
@@ -27,9 +30,6 @@ spec:
           - mountPath: /var/lib/{{ include "mysql.fullname" . }}
             name: {{ include "mysql.fullname" . }}
             readOnly: false
-        env:
-          - name: MYSQL_ROOT_PASSWORD
-            value: adminpass
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
