@@ -54,7 +54,7 @@ spec:
   basicAuth:
     secret: traefik-dashboard-auth
 ---
- Duplicati
+# Duplicati
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
