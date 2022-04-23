@@ -36,6 +36,10 @@ spec:
             - name: http
               containerPort: {{ .Values.container.port }}
               protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/{{ include "rancher.fullname" . }}
+              name: {{ include "rancher.fullname" . }}
+              readOnly: false
           livenessProbe:
             httpGet:
               path: /
@@ -46,6 +50,9 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: {{ include "rancher.fullname" . }}
+          hostPath: { path: /home/ubuntu/{{ include "rancher.fullname" . }}-data }
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
