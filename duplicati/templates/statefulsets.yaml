@@ -28,7 +28,7 @@ spec:
               containerPort: {{ .Values.container.port }}
               protocol: TCP
           volumeMounts:
-            - mountPath: /backup/home
+            - mountPath: /backup
               name: home
               readOnly: true
       dnsPolicy: ClusterFirst
@@ -37,7 +37,7 @@ spec:
       terminationGracePeriodSeconds: 30
       volumes:
         - name: home
-          hostPath: { path: /home }
+          hostPath: { path: /home/ubuntu/ }
 
 #  volumeClaimTemplates:
 #    - metadata:
