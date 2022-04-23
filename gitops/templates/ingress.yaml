@@ -66,9 +66,8 @@ spec:
   routes:
     - kind: Rule
       match: Host(`rancher-cluster.kuberstar.com`)
-      priority: 10
       services:
         - name: rancher
-          port: 443
+          port: 80
   tls:
     certResolver: myresolver
