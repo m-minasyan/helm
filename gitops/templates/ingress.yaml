@@ -54,21 +54,21 @@ spec:
   basicAuth:
     secret: traefik-dashboard-auth
 ---
-## Rancher
-#apiVersion: traefik.containo.us/v1alpha1
-#kind: IngressRoute
-#metadata:
-#  name: rancher
-#  namespace: argocd
-#spec:
-#  entryPoints:
-#    - websecure
-#  routes:
-#    - kind: Rule
-#      match: Host(`rancher-cluster.kuberstar.com`)
-#      priority: 10
-#      services:
-#        - name: rancher
-#          port: 443
-#  tls:
-#    certResolver: myresolver
+# Rancher
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: rancher
+  namespace: argocd
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`rancher-cluster.kuberstar.com`)
+      priority: 10
+      services:
+        - name: rancher
+          port: 443
+  tls:
+    certResolver: myresolver

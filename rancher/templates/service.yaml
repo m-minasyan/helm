@@ -1,15 +1,18 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "rancher.fullname" . }}
+  name: {{ template "rancher.fullname" . }}
   labels:
-    {{- include "rancher.labels" . | nindent 4 }}
+{{ include "rancher.labels" . | indent 4 }}
 spec:
-  type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+  - port: 443
+    targetPort: 444
+    protocol: TCP
+    name: https-internal
   selector:
-    {{- include "rancher.selectorLabels" . | nindent 4 }}
+    app: {{ template "rancher.fullname" . }}

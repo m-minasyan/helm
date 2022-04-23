@@ -1,62 +1,76 @@
+{{/* vim: set filetype=mustache: */}}
 {{/*
 Expand the name of the chart.
 */}}
 {{- define "rancher.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
-{{- end }}
+  {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
 
 {{/*
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-If release name contains chart name it will be used as a full name.
 */}}
 {{- define "rancher.fullname" -}}
-{{- if .Values.fullnameOverride }}
-{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- $name := default .Chart.Name .Values.nameOverride }}
-{{- if contains $name .Release.Name }}
-{{- .Release.Name | trunc 63 | trimSuffix "-" }}
-{{- else }}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
-{{- end }}
-{{- end }}
-{{- end }}
+  {{- $name := default .Chart.Name .Values.nameOverride -}}
+  {{- if contains $name .Release.Name -}}
+    {{- .Release.Name | trunc 63 | trimSuffix "-" -}}
+  {{- else -}}
+    {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+  {{- end -}}
+{{- end -}}
 
 {{/*
-Create chart name and version as used by the chart label.
+Create a default fully qualified chart name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
-{{- define "rancher.chart" -}}
-{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
-{{- end }}
+{{- define "rancher.chartname" -}}
+  {{- printf "%s-%s" .Chart.Name .Chart.Version | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+# Render Values in configurationSnippet
+{{- define "configurationSnippet" -}}
+  {{- tpl (.Values.ingress.configurationSnippet) . | nindent 6 -}}
+{{- end -}}
 
 {{/*
-Common labels
+Generate the labels.
 */}}
 {{- define "rancher.labels" -}}
-helm.sh/chart: {{ include "rancher.chart" . }}
-{{ include "rancher.selectorLabels" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
+app: {{ template "rancher.fullname" . }}
+chart: {{ template "rancher.chartname" . }}
+heritage: {{ .Release.Service }}
+release: {{ .Release.Name }}
 {{- end }}
 
-{{/*
-Selector labels
-*/}}
-{{- define "rancher.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "rancher.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end }}
+# Windows Support
 
 {{/*
-Create the name of the service account to use
+Windows cluster will add default taint for linux nodes,
+add below linux tolerations to workloads could be scheduled to those linux nodes
 */}}
-{{- define "rancher.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "rancher.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
-{{- end }}
+
+{{- define "linux-node-tolerations" -}}
+- key: "cattle.io/os"
+  value: "linux"
+  effect: "NoSchedule"
+  operator: "Equal"
+{{- end -}}
+
+{{- define "linux-node-selector-terms" -}}
+{{- $key := "kubernetes.io/os" -}}
+- matchExpressions:
+  - key: {{ $key }}
+    operator: NotIn
+    values:
+    - windows
+{{- end -}}
+
+{{- define "system_default_registry" -}}
+{{- if .Values.systemDefaultRegistry -}}
+  {{- if hasSuffix "/" .Values.systemDefaultRegistry -}}
+    {{- printf "%s" .Values.systemDefaultRegistry -}}
+  {{- else -}}
+    {{- printf "%s/" .Values.systemDefaultRegistry -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
