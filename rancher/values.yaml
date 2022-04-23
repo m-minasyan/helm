@@ -1,0 +1,28 @@
+replicaCount: 1
+
+image:
+  repository: rancher/rancher
+  pullPolicy: Always
+
+imagePullSecrets: []
+nameOverride: "rancher"
+fullnameOverride: "rancher"
+
+service:
+  type: ClusterIP
+  port: 80
+
+container:
+  port: 80
+
+route:
+  host: rancher-cluster.kuberstar.com
+  path: /
+  port: 80
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
