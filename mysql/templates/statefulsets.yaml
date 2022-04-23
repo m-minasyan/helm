@@ -12,10 +12,6 @@ spec:
       workload.user.cattle.io/workloadselector: apps.statefulset-mysql-mysql
   template:
     metadata:
-          {{- with .Values.podAnnotations }}
-      annotations:
-            {{- toYaml . | nindent 8 }}
-          {{- end }}
       labels:
         workload.user.cattle.io/workloadselector: apps.statefulset-mysql-mysql
     spec:
