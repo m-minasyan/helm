@@ -16,27 +16,27 @@ spec:
         workload.user.cattle.io/workloadselector: apps.statefulset-mysql-mysql
     spec:
       containers:
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          name: {{ include "mysql.fullname" . }}
-          ports:
-            - containerPort: {{ .Values.service.port }}
-              name: {{ include "mysql.fullname" . }}
-              protocol: TCP
-          volumeMounts:
-            - mountPath: /var/lib/{{ include "mysql.fullname" . }}
-              name: {{ include "mysql.fullname" . }}
-              readOnly: false
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              value: adminpass
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        name: {{ include "mysql.fullname" . }}
+        ports:
+          - containerPort: {{ .Values.service.port }}
+            name: {{ include "mysql.fullname" . }}
+            protocol: TCP
+        volumeMounts:
+          - mountPath: /var/lib/{{ include "mysql.fullname" . }}
+            name: {{ include "mysql.fullname" . }}
+            readOnly: false
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: adminpass
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       terminationGracePeriodSeconds: 30
       volumes:
         - name: {{ include "mysql.fullname" . }}
-          hostPath: {path: /home/ubuntu/{{ include "mysql.fullname" . }}-data}
+          hostPath: { path: /home/ubuntu/{{ include "mysql.fullname" . }}-data }
   podManagementPolicy: OrderedReady
   replicas: {{ .Values.replicaCount }}
   revisionHistoryLimit: 10
