@@ -71,3 +71,21 @@ spec:
           port: 80
   tls:
     certResolver: myresolver
+---
+# Rancher
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: jenkins
+  namespace: jenkins
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`jenkins-cluster.kuberstar.com`)
+      services:
+        - name: jenkins
+          port: 8080
+  tls:
+    certResolver: myresolver
