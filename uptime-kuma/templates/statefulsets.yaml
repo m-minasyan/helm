@@ -20,8 +20,8 @@ spec:
     spec:
       containers:
       - env:
-        - name: uptime-kuma_ROOT_PASSWORD
-          value: adminpass
+        - name: "UPTIME_KUMA_PORT"
+          value: "3001"
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         name: {{ include "uptime-kuma.fullname" . }}
