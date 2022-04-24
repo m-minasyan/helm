@@ -35,7 +35,9 @@ spec:
         timeoutSeconds: 4
   volumes:
     - name: nfs-volume
-      hostPath: { path: /home/ubuntu/backupstore }
+      hostPath:
+        path: /home/ubuntu/backupstore
+        type: DirectoryOrCreate
 ---
 kind: Service
 apiVersion: v1
