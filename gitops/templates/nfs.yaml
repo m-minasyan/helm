@@ -9,7 +9,6 @@ spec:
   volumes:
     - name: nfs-volume
       hostPath: { path: /home/ubuntu/backup-data }
-      emptyDir: {}
   containers:
     - name: longhorn-test-nfs-container
       image: longhornio/nfs-ganesha:latest
