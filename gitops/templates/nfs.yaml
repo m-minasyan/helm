@@ -29,7 +29,7 @@ spec:
           add: ["SYS_ADMIN", "DAC_READ_SEARCH"]
       volumeMounts:
         - name: nfs-volume
-          mountPath: "."
+          mountPath: "/opt"
       livenessProbe:
         exec:
           command: ["bash", "-c", "grep \"No export entries found\" /var/log/ganesha.log > /dev/null 2>&1 ; [ $? -ne 0 ]"]
