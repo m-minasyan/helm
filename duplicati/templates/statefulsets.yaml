@@ -21,6 +21,7 @@ spec:
         - name: {{ include "duplicati.fullname" . }}
           env:
             - { name: PUID, value: "0" }
+            - { name: PGID, value: "0" }
             - { name: TZ, value: "Asia/Yerevan" }
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           ports:
