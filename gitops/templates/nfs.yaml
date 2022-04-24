@@ -27,6 +27,8 @@ spec:
       volumeMounts:
         - name: nfs-volume
           mountPath: "/opt/backupstore"
+        - name: nfs-volume-host
+          mountPath: "/opt/backupstore"
       livenessProbe:
         exec:
           command: ["bash", "-c", "grep \"No export entries found\" /var/log/ganesha.log > /dev/null 2>&1 ; [ $? -ne 0 ]"]
@@ -34,10 +36,11 @@ spec:
         periodSeconds: 5
         timeoutSeconds: 4
   volumes:
-    - name: nfs-volume
+    - name: nfs-volume-host
       hostPath:
         path: /home/ubuntu/backupstore
-        type: DirectoryOrCreate
+    - name: nfs-volume
+      emptyDir: { }
 ---
 kind: Service
 apiVersion: v1
