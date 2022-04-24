@@ -3,6 +3,8 @@ kind: StatefulSet
 metadata:
   name: {{ include "jenkins.fullname" . }}
   namespace: {{ include "jenkins.fullname" . }}
+  labels:
+    {{- include "jenkins.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
@@ -31,7 +33,7 @@ spec:
           - mountPath: /var/{{ include "jenkins.fullname" . }}_home" . }}
             name: {{ include "jenkins.fullname" . }}
             readOnly: false
-#      dnsPolicy: ClusterFirst
+      dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       terminationGracePeriodSeconds: 30
