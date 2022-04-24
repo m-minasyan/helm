@@ -6,7 +6,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: uptime-kuma
+  storageClassName: {{ include "uptime-kuma.fullname" . }}-volume
   resources:
     requests:
       storage: 8Gi

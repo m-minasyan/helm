@@ -15,4 +15,3 @@ service:
 
 path:
   cluster: /app/data
-  host: /home/ubuntu/
