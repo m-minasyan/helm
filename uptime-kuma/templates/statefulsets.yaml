@@ -30,7 +30,7 @@ spec:
             name: http
             protocol: TCP
         volumeMounts:
-          - mountPath: /var/{{ include "uptime-kuma.fullname" . }}_home"
+          - mountPath: /app/data"
             name: {{ include "uptime-kuma.fullname" . }}
             readOnly: false
       dnsPolicy: ClusterFirst
