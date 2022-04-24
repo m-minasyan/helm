@@ -30,7 +30,7 @@ spec:
             name: http
             protocol: TCP
         volumeMounts:
-          - mountPath: /var/{{ include "jenkins.fullname" . }}_home"
+          - mountPath: /var/{{ include "jenkins.fullname" . }}_home
             name: {{ include "jenkins.fullname" . }}
             readOnly: false
       dnsPolicy: ClusterFirst
