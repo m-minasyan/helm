@@ -43,7 +43,7 @@ spec:
       terminationGracePeriodSeconds: 30
       volumes:
         - name: home
-          hostPath: { path: /home/ubuntu/ }
+          hostPath: { path: /var/lib/longhorn }
         - name: {{ include "duplicati.fullname" . }}-config
           hostPath: { path: /home/ubuntu/{{ include "duplicati.fullname" . }}-data/config }
         - name: {{ include "duplicati.fullname" . }}-backups
