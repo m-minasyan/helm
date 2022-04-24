@@ -22,7 +22,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql
-  namespace: default
+  namespace: mysql
 spec:
   accessModes:
     - ReadWriteOnce
