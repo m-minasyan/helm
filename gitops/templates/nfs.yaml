@@ -29,7 +29,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: longhorn-test-minio
-  namespace: longhorn
+  namespace: default
   labels:
     app: longhorn-test-minio
 spec:
@@ -74,7 +74,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: minio-service
-  namespace: longhorn
+  namespace: default
 spec:
   selector:
     app: longhorn-test-minio
