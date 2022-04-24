@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: minio-secret
-  namespace: longhorn
+  namespace: default
 type: Opaque
 data:
   AWS_ACCESS_KEY_ID: bG9uZ2hvcm4tdGVzdC1hY2Nlc3Mta2V5 # longhorn-test-access-key
