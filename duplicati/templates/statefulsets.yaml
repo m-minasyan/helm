@@ -31,6 +31,9 @@ spec:
             - mountPath: /backup
               name: home
               readOnly: true
+            - mountPath: /config
+              name: {{ include "duplicati.fullname" . }}
+              readOnly: false
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -38,6 +41,8 @@ spec:
       volumes:
         - name: home
           hostPath: { path: /home/ubuntu/ }
+        - name: {{ include "duplicati.fullname" . }}
+          hostPath: { path: /home/ubuntu/{{ include "duplicati.fullname" . }}-data }
 
 #  volumeClaimTemplates:
 #    - metadata:
