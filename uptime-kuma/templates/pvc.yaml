@@ -1,0 +1,12 @@
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "uptime-kuma.fullname" . }}-volume
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: uptime-kuma
+  resources:
+    requests:
+      storage: 8Gi

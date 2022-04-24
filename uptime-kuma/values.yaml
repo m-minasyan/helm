@@ -12,3 +12,7 @@ service:
   port: 3001
   targetPort: 3001
   clusterIP: 10.43.79.175
+
+path:
+  cluster: /app/data
+  host: /home/ubuntu/
