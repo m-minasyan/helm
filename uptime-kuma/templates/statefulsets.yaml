@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "uptime-kuma.fullname" . }}
+  namespace: {{ include "uptime-kuma.fullname" . }}
+  labels:
+    {{- include "uptime-kuma.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "uptime-kuma.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "uptime-kuma.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: uptime-kuma_ROOT_PASSWORD
+          value: adminpass
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        name: {{ include "uptime-kuma.fullname" . }}
+        ports:
+          - containerPort: {{ .Values.service.port }}
+            name: http
+            protocol: TCP
+        volumeMounts:
+          - mountPath: /var/{{ include "uptime-kuma.fullname" . }}_home"
+            name: {{ include "uptime-kuma.fullname" . }}
+            readOnly: false
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: {{ include "uptime-kuma.fullname" . }}
+          hostPath: { path: /home/ubuntu/{{ include "uptime-kuma.fullname" . }}-data }
+  podManagementPolicy: OrderedReady
+  replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: 10
+  serviceName: {{ include "uptime-kuma.fullname" . }}
+  updateStrategy:
+    type: OnDelete
