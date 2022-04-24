@@ -71,3 +71,21 @@ spec:
           port: 80
   tls:
     certResolver: myresolver
+---
+# Lonhorn
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: longhorn-cluster.kuberstar.com
+  namespace: longhorn
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`longhorn-cluster.kuberstar.com`)
+      services:
+        - name: longhorn-frontend
+          port: 80
+  tls:
+    certResolver: myresolver
