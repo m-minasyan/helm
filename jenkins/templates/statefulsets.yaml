@@ -31,7 +31,7 @@ spec:
           - mountPath: /var/{{ include "jenkins.fullname" . }}_home" . }}
             name: {{ include "jenkins.fullname" . }}
             readOnly: false
-      dnsPolicy: ClusterFirst
+#      dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       terminationGracePeriodSeconds: 30
