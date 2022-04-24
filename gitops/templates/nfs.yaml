@@ -6,9 +6,6 @@ metadata:
   labels:
     app: longhorn-test-nfs
 spec:
-  volumes:
-    - name: nfs-volume
-      hostPath: { path: /home/ubuntu/backupstore }
   containers:
     - name: longhorn-test-nfs-container
       image: longhornio/nfs-ganesha:latest
@@ -36,6 +33,9 @@ spec:
         initialDelaySeconds: 5
         periodSeconds: 5
         timeoutSeconds: 4
+  volumes:
+    - name: nfs-volume
+      hostPath: { path: /home/ubuntu/backupstore }
 ---
 kind: Service
 apiVersion: v1
