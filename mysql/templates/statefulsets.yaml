@@ -29,7 +29,6 @@ spec:
         volumeMounts:
           - mountPath: /var/lib/{{ include "mysql.fullname" . }}
             name: {{ include "mysql.fullname" . }}-volume
-#            readOnly: false
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -38,7 +37,6 @@ spec:
         - name: {{ include "mysql.fullname" . }}-volume
           persistentVolumeClaim:
             claimName: mysql-volume
-#         hostPath: { path: /home/ubuntu/{{ include "mysql.fullname" . }}-data }
   podManagementPolicy: OrderedReady
   replicas: {{ .Values.replicaCount }}
   revisionHistoryLimit: 10
