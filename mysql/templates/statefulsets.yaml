@@ -37,7 +37,7 @@ spec:
       volumes:
         - name: {{ include "mysql.fullname" . }}-volume
           persistentVolumeClaim:
-            claimName: mysql
+            claimName: mysql-volume
 #         hostPath: { path: /home/ubuntu/{{ include "mysql.fullname" . }}-data }
   podManagementPolicy: OrderedReady
   replicas: {{ .Values.replicaCount }}
