@@ -2,7 +2,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: argocd-server
+  name: argocd-cluster.kuberstar.com
   namespace: argocd
 spec:
   entryPoints:
@@ -28,7 +28,7 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: traefik-dashboard
+  name: traefik-cluster.kuberstar.com
   namespace: traefik
 spec:
   entryPoints:
@@ -58,7 +58,7 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: rancher
+  name: rancher-cluster.kuberstar.com
   namespace: cattle-system
 spec:
   entryPoints:
@@ -76,7 +76,7 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: jenkins
+  name: jenkins-cluster.kuberstar.com
   namespace: jenkins
 spec:
   entryPoints:
