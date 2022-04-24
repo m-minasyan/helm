@@ -8,7 +8,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`uptime-kuma.kuberstar.com`)
+      match: Host(`uptime-cluster.kuberstar.com`)
       services:
         - name: uptime-kuma
           port: 3001
