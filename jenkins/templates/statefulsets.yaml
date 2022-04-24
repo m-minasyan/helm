@@ -27,7 +27,7 @@ spec:
         name: {{ include "jenkins.fullname" . }}
         ports:
           - containerPort: {{ .Values.service.port }}
-            name: {{ include "jenkins.fullname" . }}
+            name: http
             protocol: TCP
         volumeMounts:
           - mountPath: /var/{{ include "jenkins.fullname" . }}_home" . }}
