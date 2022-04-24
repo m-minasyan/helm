@@ -29,5 +29,5 @@ spec:
   resources:
     requests:
       storage: 8Gi
-  volumeName: longhorn-vol-pv
+  volumeName: mysql
   storageClassName: longhorn
