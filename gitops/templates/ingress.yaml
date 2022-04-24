@@ -23,8 +23,8 @@ spec:
           scheme: h2c
   tls:
     certResolver: myresolver
-# Traefik Dashboard
 ---
+# Traefik Dashboard
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
