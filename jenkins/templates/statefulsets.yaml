@@ -39,7 +39,8 @@ spec:
       terminationGracePeriodSeconds: 30
       volumes:
         - name: {{ include "jenkins.fullname" . }}
-          hostPath: { path: /home/ubuntu/{{ include "jenkins.fullname" . }}-data }
+          persistentVolumeClaim:
+            claimName: {{ include "jenkins.fullname" . }}-volume
   podManagementPolicy: OrderedReady
   replicas: {{ .Values.replicaCount }}
   revisionHistoryLimit: 10

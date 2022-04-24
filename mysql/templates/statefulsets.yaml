@@ -36,7 +36,7 @@ spec:
       volumes:
         - name: {{ include "mysql.fullname" . }}-volume
           persistentVolumeClaim:
-            claimName: mysql-volume
+            claimName: {{ include "mysql.fullname" . }}-volume
   podManagementPolicy: OrderedReady
   replicas: {{ .Values.replicaCount }}
   revisionHistoryLimit: 10
