@@ -30,7 +30,7 @@ spec:
               protocol: TCP
           volumeMounts:
             - mountPath: /backup
-              name: home
+              name: backupstore
               readOnly: false
             - mountPath: /config
               name: {{ include "duplicati.fullname" . }}-config
@@ -47,7 +47,7 @@ spec:
       terminationGracePeriodSeconds: 30
       volumes:
         - name: home
-          hostPath: { path: /var/lib/longhorn }
+          hostPath: { path: /home/ubuntu/backupstore }
         - name: {{ include "duplicati.fullname" . }}-config
           hostPath: { path: /home/ubuntu/{{ include "duplicati.fullname" . }}-data/config }
         - name: {{ include "duplicati.fullname" . }}-backups
