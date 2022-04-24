@@ -28,14 +28,14 @@ spec:
             protocol: TCP
         volumeMounts:
           - mountPath: /var/lib/{{ include "mysql.fullname" . }}
-            name: {{ include "mysql.fullname" . }}
-            readOnly: false
+            name: {{ include "mysql.fullname" . }}-volume
+#            readOnly: false
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       terminationGracePeriodSeconds: 30
       volumes:
-        - name: {{ include "mysql.fullname" . }}
+        - name: {{ include "mysql.fullname" . }}-volume
           persistentVolumeClaim:
             claimName: mysql
 #         hostPath: { path: /home/ubuntu/{{ include "mysql.fullname" . }}-data }
