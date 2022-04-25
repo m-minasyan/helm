@@ -132,7 +132,7 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: docker-registry-basicauth
+  name: docker-registry-auth
   namespace: docker-registry
 spec:
   basicAuth:
