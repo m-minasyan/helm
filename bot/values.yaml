@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: docker-registry:5000/telegram
+  repository: docker-registry:5000/telegram/bot
   pullPolicy: Always
   imagePullSecrets: kuberstar-registry
 
