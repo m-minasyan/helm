@@ -23,9 +23,9 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          envFrom:
-            - secretRef:
-                name: {{ .Values.fullnameOverride }}-env
+#          envFrom:
+#            - secretRef:
+#                name: {{ .Values.fullnameOverride }}-env
           ports:
             - name: http
               containerPort: {{ .Values.container.port }}
