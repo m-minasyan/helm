@@ -123,5 +123,17 @@ spec:
       services:
         - name: docker-registry
           port: 5000
+      middlewares:
+        - name: docker-registry-auth
+          namespace: docker-registry
   tls:
     certResolver: myresolver
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: docker-registry-basicauth
+  namespace: docker-registry
+spec:
+  basicAuth:
+    secret: docker-registry-auth
