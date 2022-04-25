@@ -94,7 +94,7 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: longhorn-cluster.kuberstar.com
+  name: portainer-cluster.kuberstar.com
   namespace: portainer
 spec:
   entryPoints:
@@ -105,5 +105,23 @@ spec:
       services:
         - name: portainer
           port: 9000
+  tls:
+    certResolver: myresolver
+---
+# Docker Registry
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: docker-registry-cluster.kuberstar.com
+  namespace: docker-registry
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`docker-registry-cluster.kuberstar.com`)
+      services:
+        - name: docker-registry
+          port: 5000
   tls:
     certResolver: myresolver
