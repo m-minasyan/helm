@@ -5,11 +5,12 @@ metadata:
   namespace: {{ .Values.namespace }}
 spec:
   entryPoints:
-    - web
+    - websecure
   routes:
-    - match: Host(`{{ .Values.route.host }}`)
-      kind: Rule
+    - kind: Rule
+      match: Host(`{{ .Values.route.host }}`)
       services:
         - name: {{ .Values.fullnameOverride }}
           port: {{ .Values.service.port }}
-          kind: Service
+  tls:
+    certResolver: myresolver
