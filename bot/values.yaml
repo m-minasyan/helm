@@ -1,28 +1,28 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: docker-registry-cluster.kuberstar.com/telegram
   pullPolicy: Always
+  imagePullSecrets: kuberstar-registry
 
-imagePullSecrets: []
-nameOverride: "hello-world"
-fullnameOverride: "hello-world"
+nameOverride: "bot"
+fullnameOverride: "bot"
+namespace: "kuberstar"
 
 service:
   type: ClusterIP
-  port: 80
+  port: 3000
+  targetPort: 3000
 
 container:
-  port: 80
+  port: 3000
 
 route:
   host: kuberstar.com
-  path: /
-  port: 80
 
 autoscaling:
   enabled: false
   minReplicas: 1
-  maxReplicas: 100
+  maxReplicas: 3
   targetCPUUtilizationPercentage: 80
   targetMemoryUtilizationPercentage: 80
