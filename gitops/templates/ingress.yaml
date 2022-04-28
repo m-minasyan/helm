@@ -89,3 +89,21 @@ spec:
           port: 9090
   tls:
     certResolver: myresolver
+---
+# Longhorn
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: longhorn-cluster.kuberstar.com
+  namespace: monitoring
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`longhorn-cluster.kuberstar.com`)
+      services:
+        - name: longhorn-frontend
+          port: 80
+  tls:
+    certResolver: myresolver
