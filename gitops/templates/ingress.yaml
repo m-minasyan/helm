@@ -68,7 +68,7 @@ spec:
       match: Host(`loki-cluster.kuberstar.com`)
       services:
         - name: loki-gateway
-          port: 8080
+          port: 80
   tls:
     certResolver: myresolver
 ---
