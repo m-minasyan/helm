@@ -53,3 +53,39 @@ metadata:
 spec:
   basicAuth:
     secret: traefik-dashboard-auth
+---
+# Loki
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: loki-cluster.kuberstar.com
+  namespace: monitoring
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`loki-cluster.kuberstar.com`)
+      services:
+        - name: loki-gateway
+          port: 8080
+  tls:
+    certResolver: myresolver
+---
+# Prometheus
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: prometheus-cluster.kuberstar.com
+  namespace: monitoring
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`prometheus-cluster.kuberstar.com`)
+      services:
+        - name: prometheus-server
+          port: 9090
+  tls:
+    certResolver: myresolver
