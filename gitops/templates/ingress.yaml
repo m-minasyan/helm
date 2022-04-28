@@ -80,7 +80,7 @@ spec:
       match: Host(`prometheus-cluster.kuberstar.com`)
       services:
         - name: prometheus-server
-          port: 9090
+          port: 80
 ---
 # Longhorn
 apiVersion: traefik.containo.us/v1alpha1
