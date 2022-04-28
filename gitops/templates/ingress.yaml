@@ -30,7 +30,7 @@ metadata:
   namespace: traefik
 spec:
   entryPoints:
-    - websecure
+    - web
   routes:
     - match: Host(`traefik-cluster.kuberstar.com`)
       kind: Rule
@@ -40,8 +40,6 @@ spec:
       services:
         - name: api@internal
           kind: TraefikService
-  tls:
-    certResolver: myresolver
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
@@ -60,15 +58,13 @@ metadata:
   namespace: monitoring
 spec:
   entryPoints:
-    - websecure
+    - web
   routes:
     - kind: Rule
       match: Host(`loki-cluster.kuberstar.com`)
       services:
         - name: loki-gateway
           port: 80
-  tls:
-    certResolver: myresolver
 ---
 # Prometheus
 apiVersion: traefik.containo.us/v1alpha1
@@ -78,15 +74,13 @@ metadata:
   namespace: monitoring
 spec:
   entryPoints:
-    - websecure
+    - web
   routes:
     - kind: Rule
       match: Host(`prometheus-cluster.kuberstar.com`)
       services:
         - name: prometheus-server
           port: 9090
-  tls:
-    certResolver: myresolver
 ---
 # Longhorn
 apiVersion: traefik.containo.us/v1alpha1
@@ -96,12 +90,10 @@ metadata:
   namespace: longhorn
 spec:
   entryPoints:
-    - websecure
+    - web
   routes:
     - kind: Rule
       match: Host(`longhorn-cluster.kuberstar.com`)
       services:
         - name: longhorn-frontend
           port: 80
-  tls:
-    certResolver: myresolver
