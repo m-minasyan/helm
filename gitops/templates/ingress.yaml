@@ -93,7 +93,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: longhorn-cluster.kuberstar.com
-  namespace: monitoring
+  namespace: longhorn
 spec:
   entryPoints:
     - websecure
